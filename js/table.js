@@ -89,16 +89,18 @@ class TableCreator {
     });
 
     this.table.addEventListener('mouseout', (event) => {
-      removeHighlightCell(computeTargetCells(event));
+      unhighlightCell(computeTargetCells(event));
     });
 
     function highlightCell(array) {
-      array[0].classList.add('active-cell');
-      array[1].classList.add('active-cell');
-      array[2].classList.add('active-cell');
+      if ( array.length ) {
+        array[0].classList.add('active-cell');
+        array[1].classList.add('active-cell');
+        array[2].classList.add('active-cell');
+      }
     }
 
-    function removeHighlightCell(array) {
+    function unhighlightCell(array) {
       array[0].classList.remove('active-cell');
       array[1].classList.remove('active-cell');
       array[2].classList.remove('active-cell');
@@ -108,21 +110,29 @@ class TableCreator {
       let resultArray = [];
 
       let targetCell = event.target.closest('td');
-      let idCord = targetCell.getAttribute('idCord');
 
-      let y = +idCord[0];
-      let x = +idCord[1];
+      if (!targetCell) {
+        return [];
+      }
 
-      let Xcell = document.querySelector('tr').getElementsByTagName('th')[x];
-      let Ycell = document.querySelector('tbody').getElementsByTagName('tr')[y - 1].querySelector('th');
+      let rowNumber = targetCell.getAttribute('x-coordinates');
+      let colNumber = targetCell.getAttribute('y-coordinates');
 
-      resultArray.push(targetCell, Xcell, Ycell);
+      let x = +rowNumber;
+      let y = +colNumber;
+
+      let xCell = document.querySelector('tr').getElementsByTagName('th')[x];
+      let yCell = document.querySelector('tbody').getElementsByTagName('tr')[y - 1].querySelector('th');
+
+      resultArray.push(targetCell, xCell, yCell);
 
       return resultArray;
     }
   }
 
   render(value) {
+    console.log( value );
+
     let thead = document.createElement('thead');
     let tbody = document.createElement('tbody');
     let tr = document.createElement('tr');
@@ -152,7 +162,8 @@ class TableCreator {
       value[i].forEach((item, index) => {
         if (index) {
           let td = document.createElement('td');
-          td.setAttribute('idCord', `${i}${index}`);
+          td.setAttribute( 'x-coordinates' , `${index}`);
+          td.setAttribute( 'y-coordinates' , `${i}`);
           td.innerHTML = item;
           tr.appendChild(td);
         }

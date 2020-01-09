@@ -1,3 +1,32 @@
+html {
+  margin: 0;
+}
+
+.task-details {
+  height: 10vh;
+}
+
+.output-config {
+  height: 15vh;
+}
+
+.table-responsive {
+  height: 60vh;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+}
+
+tbody tr th {
+  position: sticky;
+  left: 0;
+  background-color: #ffffff;
+}
+
 .active-cell {
   background-color: red;
+  color: #ffffff;
 }
