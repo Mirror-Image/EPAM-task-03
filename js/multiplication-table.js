@@ -5,7 +5,9 @@ function multiplicationTable(colsValue, rowsValue, sizeValue) {
     let row = [];
     let initialColsValue = colsValue;
 
-    if (isNaN(colsValue) || isNaN(colsValue) || isNaN(sizeValue) || (colsValue < 1) || (rowsValue < 1) || (sizeValue < 1)) {
+    if (isNaN(colsValue) || colsValue < 1 || 
+        isNaN(rowsValue) || rowsValue < 1 ||
+        isNaN(sizeValue) || sizeValue < 1) {
       throw new Error();
     }
   

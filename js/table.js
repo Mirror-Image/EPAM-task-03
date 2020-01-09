@@ -84,14 +84,6 @@ class TableCreator {
     });
 
     // подсветка ячеек
-    this.table.addEventListener('mouseover', (event) => {
-      highlightCell(computeTargetCells(event));
-    });
-
-    this.table.addEventListener('mouseout', (event) => {
-      unhighlightCell(computeTargetCells(event));
-    });
-
     function highlightCell(array) {
       if ( array.length ) {
         array[0].classList.add('active-cell');
@@ -128,11 +120,17 @@ class TableCreator {
 
       return resultArray;
     }
+
+    this.table.addEventListener('mouseover', (event) => {
+      highlightCell(computeTargetCells(event));
+    });
+
+    this.table.addEventListener('mouseout', (event) => {
+      unhighlightCell(computeTargetCells(event));
+    });
   }
 
   render(value) {
-    console.log( value );
-
     let thead = document.createElement('thead');
     let tbody = document.createElement('tbody');
     let tr = document.createElement('tr');
